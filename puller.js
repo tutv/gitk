@@ -18,6 +18,7 @@ var Puller = (function () {
     };
     Puller.prototype.cdDir = function () {
         var _shell = this.shell.exec('cd ' + this.dir);
+        console.log('cd ' + this.dir);
         if (_shell.code === 0) {
             console.log(this.shell.pwd().stdout);
             return true;
