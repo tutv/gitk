@@ -28,8 +28,11 @@ export class Puller {
     public cdDir() {
         var _shell = this.shell.exec('cd ' + this.dir);
         if (_shell.code === 0) {
+            console.log(_shell.pwd().stdout);
+
             return true;
         } else {
+            console.log(_shell.pwd().stdout);
             console.log('No such directory');
             return false;
         }
