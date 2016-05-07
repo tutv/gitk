@@ -16,7 +16,6 @@ app.all('/catch', function (req, res) {
         res.send(404);
         return;
     }
-    req.accepts('application/json');
     console.log(req.body);
 
     res.json(req.body);
