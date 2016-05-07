@@ -11,7 +11,7 @@ app.get('/', function (req, res) {
     res.send('hello world');
 });
 
-app.all('catch', function (req, res) {
+app.all('/catch', function (req, res) {
     if (!req.body) {
         res.send(404);
         return;
