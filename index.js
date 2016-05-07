@@ -1,8 +1,9 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-app.use(bodyParser.json());       // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
     extended: true
 }));
 
@@ -24,13 +25,13 @@ app.all('/catch', function (req, res) {
     }
     if (user_agent.indexOf('GitHub') >= 0) {//GitHub
         var repository = req.body.repository;
-        
+
         console.log(repository);
         res.json(repository);
     } else if (user_agent.indexOf('Bitbucket') >= 0) {//Bitbucket
 
     } else {//Other
-
+        res.status(404);
     }
 });
 
