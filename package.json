@@ -10,5 +10,9 @@
     "git"
   ],
   "author": "tutv95",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.13.4",
+    "gity": "^1.0.5"
+  }
 }
