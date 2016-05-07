@@ -17,17 +17,21 @@ app.all('/catch', function (req, res) {
         return;
     }
 
-    if (!req.body.hasOwnProperty('repository')) {
+    var user_agent = req.header('user-agent');
+    if (!user_agent) {
         res.status(404);
         return;
     }
+    if (user_agent.indexOf('GitHub') >= 0) {//GitHub
+        var repository = req.body.repository;
+        
+        console.log(repository);
+        res.json(repository);
+    } else if (user_agent.indexOf('Bitbucket') >= 0) {//Bitbucket
 
-    var user_agent = req.header('user-agent');
-    console.log(user_agent);
+    } else {//Other
 
-    var repository = req.body.repository;
-
-    res.json(repository);
+    }
 });
 
 app.listen(2369, function () {
