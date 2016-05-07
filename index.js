@@ -16,9 +16,18 @@ app.all('/catch', function (req, res) {
         res.send(404);
         return;
     }
-    console.log(req.body);
 
-    res.json(req.body);
+    if (!req.body.hasOwnProperty('repository')) {
+        res.send(404);
+        return;
+    }
+
+    var headers = req.headers;
+    console.log(headers);
+
+    var repository = req.body.repository;
+
+    res.json(repository);
 });
 
 app.listen(2369, function () {
