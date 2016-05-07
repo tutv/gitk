@@ -30,9 +30,7 @@ app.all('/catch', function (req, res) {
 
     if (user_agent.indexOf('GitHub') >= 0) {//GitHub
         var gitPuller = new Puller(shell).setDir(config.dir);
-        var pull_result = gitPuller.pull();
-
-        console.log(pull_result);
+        var pull_result = gitPuller.pull('origin master');
 
         res.json(pull_result);
     } else if (user_agent.indexOf('Bitbucket') >= 0) {//Bitbucket
