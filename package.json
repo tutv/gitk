@@ -1,0 +1,14 @@
+{
+  "name": "gitk",
+  "version": "1.0.0",
+  "description": "Sync github vs server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "git"
+  ],
+  "author": "tutv95",
+  "license": "MIT"
+}
