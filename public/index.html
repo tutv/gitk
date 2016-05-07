@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>App sync git</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<main id="main">
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">
+                    Sync Git
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <a class="btn btn-primary"
+           href="https://github.com/login/oauth/authorize?client_id=0f8d3711334c954a2ba4&scope=repo">Auth</a>
+        <form action="/" method="post">
+            <div class="form-group">
+                <label for="repo"></label>
+                <select class="form-control" name="repo" id="repo">
+                    <option>tutv95/employee</option>
+                    <option>tutv95/synC</option>
+                    <option>tutv95/seowp</option>
+                    <option>tutv95/gitk</option>
+                    <option>tutv95/theblog</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="dir">Dir</label>
+                <input name="dir" type="text" class="form-control" id="dir" placeholder="Dir">
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary">Test</button>
+                <button class="btn btn-danger">Add</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="container">
+        <h2>List sync git</h2>
+        <div class="list_puller">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">tutv95/employee</h3>
+                </div>
+                <div class="panel-body">
+                    /home/thim-projects/employee
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
