@@ -26,9 +26,9 @@ export class Puller {
     }
 
     public cdDir() {
-        var _shell = this.shell.exec('cd ' + this.dir);
-        console.log('cd ' + this.dir);
-        
+        var _shell = this.shell.cd(this.dir);
+        console.log(this.dir);
+
         if (_shell.code === 0) {
             console.log(this.shell.pwd().stdout);
 
