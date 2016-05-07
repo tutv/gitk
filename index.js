@@ -1,19 +1,19 @@
 var Git = require('gity');
 var config = require('./config');
 
-var puller = function (dir) {
-    return Git({
-        base: dir
-    }).pull('origin master');
-};
-
-puller(config.dir).run(function (err, res) {
-    if (err) {
-        console.log(err);
-    }
-
-    console.log(res);
-});
+// var puller = function (dir) {
+//     return Git({
+//         base: dir
+//     }).pull('origin master');
+// };
+//
+// puller(config.dir).run(function (err, res) {
+//     if (err) {
+//         console.log(err);
+//     }
+//
+//     console.log(res);
+// });
 
 var express = require('express');
 var app = express();
