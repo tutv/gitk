@@ -14,13 +14,13 @@ app.get('/', function (req, res) {
 
 app.all('/catch', function (req, res) {
     if (!req.body) {
-        res.status(404);
+        res.status(404).send();
         return;
     }
 
     var user_agent = req.header('user-agent');
     if (!user_agent) {
-        res.status(404);
+        res.status(404).send();
         return;
     }
     if (user_agent.indexOf('GitHub') >= 0) {//GitHub
@@ -31,7 +31,7 @@ app.all('/catch', function (req, res) {
     } else if (user_agent.indexOf('Bitbucket') >= 0) {//Bitbucket
 
     } else {//Other
-        res.status(404);
+        res.status(404).send();
     }
 });
 
