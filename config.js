@@ -1,5 +1,5 @@
 var config = {
-    dir: 'E:/test_gitk'
+    dir: '/home/nodeapp/test_gitk'
 };
 
 module.exports = config;

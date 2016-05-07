@@ -9,6 +9,10 @@ if (!git_exe) {
 
 var pull = shell.cd('E:/test_gitk').exec('git pull origin master', {silent: true});
 
+var x = shell.cd('E:/test_gitksdfdsf');
+
+console.log(x.code);
+
 if (pull.code !== 0) {
     console.log('Pull failed!');
 } else {

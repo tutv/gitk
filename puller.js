@@ -1,22 +1,42 @@
-var puller = (function () {
-    function puller(shell) {
+"use strict";
+var Puller = (function () {
+    function Puller(shell) {
         this.shell = shell;
         this.setDir('.');
     }
-    puller.prototype.setDir = function (dir) {
+    Puller.prototype.setDir = function (dir) {
         this.dir = dir;
+        return this;
     };
-    puller.prototype.set_url = function (url) {
+    Puller.prototype.set_url = function (url) {
         if (url === void 0) { url = ''; }
         if (!url || url !== '') {
-            return;
+            return this;
         }
         this.git_url = url;
+        return this;
     };
-    puller.prototype.pull = function (origin) {
+    Puller.prototype.cdDir = function () {
+        var _shell = this.shell.exec('cd ' + this.dir);
+        if (_shell.code === 0) {
+            return true;
+        }
+        else {
+            console.log('No such directory');
+            return false;
+        }
+    };
+    Puller.prototype.pull = function (origin) {
         if (origin === void 0) { origin = ''; }
-        return this.shell.exec('git pull ' + origin);
+        var cd = this.cdDir();
+        if (cd) {
+            var _shell = this.shell.exec('git pull ' + origin);
+            console.log(_shell);
+            return _shell;
+        }
+        return null;
     };
-    return puller;
+    return Puller;
 }());
+exports.Puller = Puller;
 //# sourceMappingURL=puller.js.map

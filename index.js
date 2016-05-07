@@ -1,6 +1,12 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var _puller = require('./puller');
+var shell = require('shelljs');
+var Puller = _puller.Puller;
+var config = require('./config');
+
+console.log(Puller.dir);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -23,11 +29,12 @@ app.all('/catch', function (req, res) {
         res.status(404).send();
         return;
     }
+    
     if (user_agent.indexOf('GitHub') >= 0) {//GitHub
-        var repository = req.body.repository;
+        var gitPuller = new Puller(shell).setDir(config.dir);
+        var pull_result = gitPuller.pull();
 
-        console.log(repository);
-        res.json(repository);
+        res.json(pull_result);
     } else if (user_agent.indexOf('Bitbucket') >= 0) {//Bitbucket
 
     } else {//Other

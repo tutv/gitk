@@ -1,4 +1,4 @@
-class puller {
+export class Puller {
     shell;
     dir:string;
     git_url:string;
@@ -12,17 +12,37 @@ class puller {
 
     public setDir(dir) {
         this.dir = dir;
+
+        return this;
     }
 
     public set_url(url = '') {
         if (!url || url !== '') {
-            return;
+            return this;
         }
 
         this.git_url = url;
+        return this;
+    }
+
+    public cdDir() {
+        var _shell = this.shell.exec('cd ' + this.dir);
+        if (_shell.code === 0) {
+            return true;
+        } else {
+            console.log('No such directory');
+            return false;
+        }
     }
 
     public pull(origin = '') {
-        return this.shell.exec('git pull ' + origin);
+        var cd = this.cdDir();
+        if (cd) {
+            var _shell = this.shell.exec('git pull ' + origin);
+            console.log(_shell);
+            return _shell;
+        }
+
+        return null;
     }
 }
