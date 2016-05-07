@@ -1,5 +1,5 @@
 var config = {
-    dir: 'E:/sync_git'
+    dir: 'E:/test_gitk'
 };
 
 module.exports = config;

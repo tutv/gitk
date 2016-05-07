@@ -1,20 +1,3 @@
-var Git = require('gity');
-var config = require('./config');
-
-// var puller = function (dir) {
-//     return Git({
-//         base: dir
-//     }).pull('origin master');
-// };
-//
-// puller(config.dir).run(function (err, res) {
-//     if (err) {
-//         console.log(err);
-//     }
-//
-//     console.log(res);
-// });
-
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
@@ -28,11 +11,15 @@ app.get('/', function (req, res) {
     res.send('hello world');
 });
 
-app.all('/', function (req, res) {
-    console.log(req.body);
+app.all('catch', function (req, res) {
+    if (!req.body) {
+        res.send(404);
+        return;
+    }
+
     res.json(req.body);
 });
 
 app.listen(2369, function () {
-    console.log('http://localhost:9000');
+    console.log('http://localhost:2369');
 });
