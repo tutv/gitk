@@ -5,17 +5,31 @@ export class Puller {
     username:string;
     password:string;
 
+    /**
+     * Constructor
+     * @param shell
+     */
     public constructor(shell) {
         this.shell = shell;
         this.setDir('.');
     }
 
+    /**
+     * Set dir local
+     * @param dir
+     * @returns {Puller}
+     */
     public setDir(dir) {
         this.dir = dir;
 
         return this;
     }
 
+    /**
+     * Set url git
+     * @param url
+     * @returns {Puller}
+     */
     public set_url(url = '') {
         if (!url || url !== '') {
             return this;
@@ -25,22 +39,26 @@ export class Puller {
         return this;
     }
 
+    /**
+     * CD to dir local
+     * @returns {boolean}
+     */
     public cdDir() {
         var _shell = this.shell.cd(this.dir);
-        console.log(this.dir);
 
         if (_shell.code === 0) {
-            console.log(this.shell.pwd().stdout);
-
             return true;
         } else {
-            console.log(this.shell.pwd().stdout);
-
             console.log('No such directory');
             return false;
         }
     }
 
+    /**
+     * Pull git
+     * @param origin
+     * @returns {any}
+     */
     public pull(origin = '') {
         var cd = this.cdDir();
         if (cd) {
