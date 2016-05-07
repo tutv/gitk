@@ -13,17 +13,17 @@ app.get('/', function (req, res) {
 
 app.all('/catch', function (req, res) {
     if (!req.body) {
-        res.send(404);
+        res.status(404);
         return;
     }
 
     if (!req.body.hasOwnProperty('repository')) {
-        res.send(404);
+        res.status(404);
         return;
     }
 
-    var headers = req.headers;
-    console.log(headers);
+    var user_agent = req.header('user-agent');
+    console.log(user_agent);
 
     var repository = req.body.repository;
 
