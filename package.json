@@ -12,6 +12,7 @@
   "author": "tutv95",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.15.1",
     "express": "^4.13.4",
     "gity": "^1.0.5"
   }
