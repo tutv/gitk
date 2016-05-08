@@ -28,8 +28,7 @@ passport.deserializeUser(function (obj, done) {
 
 passport.use(new BitbucketStrategy({
         clientID: BITBUCKET_CLIENT_ID,
-        clientSecret: BITBUCKET_CLIENT_SECRET,
-        callbackURL: "http://188.166.233.156:2369/auth/bitbucket/callback"
+        clientSecret: BITBUCKET_CLIENT_SECRET
     },
     function (token, tokenSecret, profile, done) {
         // asynchronous verification, for effect...
@@ -52,8 +51,6 @@ passport.use(new BitbucketStrategy({
 app.get('/auth/bitbucket',
     passport.authenticate('bitbucket'),
     function (req, res) {
-        // The request will be redirected to Bitbucket for authentication, so this
-        // function will not be called.
     });
 
 app.get('/auth/bitbucket/callback',
