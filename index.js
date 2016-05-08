@@ -33,7 +33,6 @@ app.use(bodyParser.urlencoded({
  * @type {Puller}
  */
 var gitPuller = new Puller(shell);
-gitPuller.setDir(config.dir);
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', function (req, res) {
@@ -53,13 +52,36 @@ app.all('/catch', function (req, res) {
     }
 
     if (user_agent.indexOf('GitHub') >= 0) {//GitHub
-        var pull_result = gitPuller.pull('origin master');
+        var repository = req.body.repository;
+        var full_name = repository.full_name;
 
-        res.json(pull_result);
+        db.repos.find({
+            host: 'github',
+            repo: full_name
+        }, function (err, docs) {
+            for (var i = 0; i < docs.length; i++) {
+                var sync = docs[i];
+                gitPuller.setDir(sync.dir);
+                gitPuller.pull('origin master');
+            }
+
+            res.json(docs.length);
+        });
     } else if (user_agent.indexOf('Bitbucket') >= 0) {//Bitbucket
-        pull_result = gitPuller.pull('origin master');
+        full_name = req.body.full_name;
 
-        res.json(pull_result);
+        db.repos.find({
+            host: 'bitbucket',
+            repo: full_name
+        }, function (err, docs) {
+            for (var i = 0; i < docs.length; i++) {
+                var sync = docs[i];
+                gitPuller.setDir(sync.dir);
+                gitPuller.pull('origin master');
+            }
+
+            res.json(docs.length);
+        });
     } else {//Other
         res.status(404).send();
     }
@@ -118,6 +140,24 @@ app.post('/create', upload.array(), function (req, res) {
                 });
             });
         }
+    });
+});
+
+app.get('/delete/:id', function (req, res) {
+    var id = req.params.id;
+    db.repos.remove({_id: id}, {}, function (err, num) {
+        if (num > 0) {
+            res.json({
+                return: true,
+                msg: 'Success!'
+            });
+        } else {
+            res.json({
+                return: false,
+                msg: 'Error!'
+            });
+        }
+
     });
 });
 
