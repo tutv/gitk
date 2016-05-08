@@ -6,7 +6,6 @@ var upload = multer();
 var _puller = require('./puller');
 var shell = require('shelljs');
 var Puller = _puller.Puller;
-var config = require('./config');
 
 var git_exe = shell.which('git');
 if (!git_exe) {
@@ -15,13 +14,6 @@ if (!git_exe) {
 }
 
 var db = require('./db');
-// db.repos.insert({
-//     host: 'github',
-//     repo: 'tutv95/test_gitk',
-//     dir: '/home/nodeapp/test_gitk'
-// }, function (err, newDoc) {
-//     console.log(newDoc);
-// });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
