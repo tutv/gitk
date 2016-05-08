@@ -19,45 +19,39 @@
     </nav>
 
     <div class="container">
-        <a class="btn btn-primary"
-           href="https://bitbucket.org/site/oauth2/authorize?client_id=MEuemHGp624aGbk3JL&response_type=code">Login by
-            Bitbucket</a>
-        <form action="/" method="post">
-            <div class="form-group">
-                <label for="repo"></label>
-                <select class="form-control" name="repo" id="repo">
-                    <option>tutv95/employee</option>
-                    <option>tutv95/synC</option>
-                    <option>tutv95/seowp</option>
-                    <option>tutv95/gitk</option>
-                    <option>tutv95/theblog</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="dir">Dir</label>
-                <input name="dir" type="text" class="form-control" id="dir" placeholder="Dir">
+        <form action="/" method="post" id="form-add">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="repo">Repo</label>
+                        <input name="repo" type="text" class="form-control" id="repo" placeholder="Repo E.g tutv95/gitk">
+                    </div>
+                    <div class="form-group">
+                        <label for="dir">Dir</label>
+                        <input name="dir" type="text" class="form-control" id="dir" placeholder="Dir">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="host">Host</label>
+                        <select name="host" id="host" class="form-control">
+                            <option value="bitbucket">Bitbucket</option>
+                            <option value="github">GitHub</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
             <div class="form-group">
-                <button class="btn btn-primary">Test</button>
-                <button class="btn btn-danger">Add</button>
+                <button class="btn btn-danger" id="add">Add</button>
             </div>
         </form>
-    </div>
 
-    <div class="container">
         <h2>List sync git</h2>
         <div class="list_puller">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">tutv95/employee</h3>
-                </div>
-                <div class="panel-body">
-                    /home/thim-projects/employee
-                </div>
-            </div>
         </div>
     </div>
+
 </main>
 
 <script src="js/jquery.min.js"></script>

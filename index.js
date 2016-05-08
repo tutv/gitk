@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var multer = require('multer'); // v1.0.5
+var upload = multer();
 var _puller = require('./puller');
 var shell = require('shelljs');
 var Puller = _puller.Puller;
@@ -12,57 +14,10 @@ if (!git_exe) {
     shell.exit(1);
 }
 
-var passport = require('passport'),
-    util = require('util'),
-    BitbucketStrategy = require('passport-bitbucket-oauth2').Strategy;
-var BITBUCKET_CLIENT_ID = "MEuemHGp624aGbk3JL";
-var BITBUCKET_CLIENT_SECRET = "KA5yYJeKCxDGPghgeRTczNftKuUMnqCX";
-
-passport.serializeUser(function (user, done) {
-    done(null, user);
-});
-
-passport.deserializeUser(function (obj, done) {
-    done(null, obj);
-});
-
-passport.use(new BitbucketStrategy({
-        clientID: BITBUCKET_CLIENT_ID,
-        clientSecret: BITBUCKET_CLIENT_SECRET
-    },
-    function (token, tokenSecret, profile, done) {
-        // asynchronous verification, for effect...
-
-        db.repos.insert(token, function (err, newDoc) {
-            console.log(newDoc);
-        });
-
-        process.nextTick(function () {
-
-            // To keep the example simple, the user's Bitbucket profile is returned to
-            // represent the logged-in user.  In a typical application, you would want
-            // to associate the Bitbucket account with a user record in your database,
-            // and return that user instead.
-            return done(null, profile);
-        });
-    }
-));
-
-app.get('/auth/bitbucket',
-    passport.authenticate('bitbucket'),
-    function (req, res) {
-    });
-
-app.get('/auth/bitbucket/callback',
-    passport.authenticate('bitbucket', {failureRedirect: '/login'}),
-    function (req, res) {
-        res.redirect('/');
-    });
-
-
 var db = require('./db');
 // db.repos.insert({
-//     repo: 'https://github.com/tutv95/test_gitk',
+//     host: 'github',
+//     repo: 'tutv95/test_gitk',
 //     dir: '/home/nodeapp/test_gitk'
 // }, function (err, newDoc) {
 //     console.log(newDoc);
@@ -123,6 +78,49 @@ app.get('/all', function (req, res) {
     });
 });
 
+app.post('/create', upload.array(), function (req, res) {
+    var body = req.body;
+
+    if (!body.repo || body.repo === '') {
+        res.status(404).send();
+        return;
+    }
+    if (!body.dir || body.dir === '') {
+        res.status(404).send();
+        return;
+    }
+    if (!body.host || body.host === '') {
+        res.status(404).send();
+        return;
+    }
+
+    var repo = body.repo;
+    var dir = body.dir;
+    var host = body.host;
+    var newSync = {
+        repo: repo,
+        dir: dir,
+        host: host
+    };
+
+    db.repos.find(newSync, function (err, docs) {
+        if (docs.length > 0) {
+            res.json({
+                return: false,
+                msg: 'Exist!'
+            });
+        } else {
+            db.repos.insert(newSync, function (err, newDoc) {
+                res.json({
+                    return: true,
+                    msg: 'Success',
+                    response: newDoc
+                });
+            });
+        }
+    });
+});
+
 app.get('/auth', function (req, res) {
     var code = req.query.code;
 
@@ -130,8 +128,6 @@ app.get('/auth', function (req, res) {
         res.status(404).send();
         return;
     }
-
-
 });
 
 app.use(express.static(__dirname + '/public'));
