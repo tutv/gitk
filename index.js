@@ -60,7 +60,8 @@ app.all('/catch', function (req, res) {
             res.json(docs.length);
         });
     } else if (user_agent.indexOf('Bitbucket') >= 0) {//Bitbucket
-        full_name = req.body.full_name;
+        repository = req.body.repository;
+        full_name = repository.full_name;
 
         db.repos.find({
             host: 'bitbucket',
