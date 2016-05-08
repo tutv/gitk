@@ -1,11 +1,8 @@
 var unirest = require('unirest');
 
-unirest.post('https://bitbucket.org/site/oauth2/access_token')
-    .oauth({
-        consumer_key: 'MEuemHGp624aGbk3JL',
-        consumer_secret: 'KA5yYJeKCxDGPghgeRTczNftKuUMnqCX'
-    })
-    .send({grant_type: 'authorization_code', code: '7cTjs8BSSNtWpasyxM'})
+var Request = unirest.get('https://bitbucket.org/site/oauth2/authorize?client_id=MEuemHGp624aGbk3JL&response_type=L6LsMRaqd2uSWDLjCE');
+
+Request
     .end(function (response) {
-        console.log(response.raw_body);
+        console.log(response.headers );
     });

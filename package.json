@@ -15,9 +15,11 @@
     "body-parser": "^1.15.1",
     "express": "^4.13.4",
     "nedb": "^1.8.0",
+    "oauth": "^0.9.14",
     "passport": "^0.3.2",
     "passport-bitbucket-oauth2": "^0.1.2",
     "shelljs": "^0.7.0",
-    "unirest": "^0.4.2"
+    "unirest": "^0.4.2",
+    "util": "^0.10.3"
   }
 }
