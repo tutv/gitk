@@ -63,6 +63,7 @@ export class Puller {
         var cd = this.cdDir();
         if (cd) {
             var _shell = this.shell.exec('git pull ' + origin);
+            var test = this.shell.exec('npm run-script restart');
 
             if (_shell.code !== 0) {
                 console.log('Pull failed!');
