@@ -76,7 +76,7 @@ export class Puller {
         return null;
     }
 
-    public push(origin = 'wpengine') {
+    public push(origin = 'wpengine master') {
 
         var cd = this.cdDir();
         if (cd) {

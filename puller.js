@@ -65,7 +65,7 @@ var Puller = (function () {
         return null;
     };
     Puller.prototype.push = function (origin) {
-        if (origin === void 0) { origin = 'wpengine'; }
+        if (origin === void 0) { origin = 'wpengine master'; }
         var cd = this.cdDir();
         if (cd) {
             var _shell = this.shell.exec('git push -u ' + origin);
