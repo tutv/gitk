@@ -77,6 +77,7 @@ export class Puller {
     }
 
     public push(origin = 'wpengine') {
+
         var cd = this.cdDir();
         if (cd) {
             var _shell = this.shell.exec('git push -u ' + origin);
