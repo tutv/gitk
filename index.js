@@ -55,6 +55,7 @@ app.all('/catch', function (req, res) {
                 var sync = docs[i];
                 gitPuller.setDir(sync.dir);
                 gitPuller.pull('origin master');
+                gitPuller.push();
             }
 
             res.json(docs.length);
@@ -71,6 +72,7 @@ app.all('/catch', function (req, res) {
                 var sync = docs[i];
                 gitPuller.setDir(sync.dir);
                 gitPuller.pull('origin master');
+                gitPuller.push();
             }
 
             res.json(docs.length);
