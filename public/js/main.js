@@ -63,7 +63,9 @@ jQuery(document).ready(function ($) {
             '<div class="panel-heading">' +
             '<h3 class="panel-title">' + newSync.host + ': ' + newSync.repo + '<span class="close delete" data-id="' + newSync._id + '">&times;</span></h3>' +
             '</div>' +
-            '<div class="panel-body">' + newSync.dir + '</div>' +
+            '<div class="panel-body"><div>Directory: <code>' + newSync.dir + '</code></div>' +
+            'Script: <code>' + newSync.after + '</code>' +
+            '</div>' +
             '</div>';
 
         $list_puller.append(html);

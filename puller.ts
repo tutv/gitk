@@ -76,16 +76,18 @@ export class Puller {
         return null;
     }
 
-    public push(origin = 'wpengine master') {
-
+    public exec(cmd = '') {
+        if (!cmd.length) {
+            return;
+        }
         var cd = this.cdDir();
         if (cd) {
-            var _shell = this.shell.exec('git push -u ' + origin);
+            var _shell = this.shell.exec(cmd);
 
             if (_shell.code !== 0) {
-                console.log('Push failed!');
+                console.log('Command failed!');
             } else {
-                console.log('Push success!');
+                console.log('Command success!');
             }
 
             return _shell;

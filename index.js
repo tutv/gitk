@@ -55,7 +55,7 @@ app.all('/catch', function (req, res) {
                 var sync = docs[i];
                 gitPuller.setDir(sync.dir);
                 gitPuller.pull('origin master');
-                gitPuller.push();
+                gitPuller.exec(sync.after)
             }
 
             res.json(docs.length);
@@ -72,7 +72,7 @@ app.all('/catch', function (req, res) {
                 var sync = docs[i];
                 gitPuller.setDir(sync.dir);
                 gitPuller.pull('origin master');
-                gitPuller.push();
+                gitPuller.exec(sync.after);
             }
 
             res.json(docs.length);
@@ -114,10 +114,12 @@ app.post('/create', upload.array(), function (req, res) {
     var repo = body.repo;
     var dir = body.dir;
     var host = body.host;
+    var after_pull = body.after ? body.after: '';
     var newSync = {
         repo: repo,
         dir: dir,
-        host: host
+        host: host,
+        after: after_pull
     };
 
     db.repos.find(newSync, function (err, docs) {
