@@ -1,19 +1,22 @@
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-var multer = require('multer'); // v1.0.5
-var upload = multer();
-var _puller = require('./puller');
-var shell = require('shelljs');
-var Puller = _puller.Puller;
+"use strict";
 
-var git_exe = shell.which('git');
+let express = require('express');
+let app = express();
+
+let bodyParser = require('body-parser');
+let multer = require('multer');
+let upload = multer();
+let _puller = require('./puller');
+let shell = require('shelljs');
+let Puller = _puller.Puller;
+
+let git_exe = shell.which('git');
 if (!git_exe) {
     console.log('Sorry, this script requires git');
     shell.exit(1);
 }
 
-var db = require('./db');
+let db = require('./db');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -24,7 +27,7 @@ app.use(bodyParser.urlencoded({
  * Init git puller
  * @type {Puller}
  */
-var gitPuller = new Puller(shell);
+let gitPuller = new Puller(shell);
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', function (req, res) {
@@ -37,22 +40,22 @@ app.all('/catch', function (req, res) {
         return;
     }
 
-    var user_agent = req.header('user-agent');
+    let user_agent = req.header('user-agent');
     if (!user_agent) {
         res.status(404).send();
         return;
     }
 
     if (user_agent.indexOf('GitHub') >= 0) {//GitHub
-        var repository = req.body.repository;
-        var full_name = repository.full_name;
+        let repository = req.body.repository;
+        let full_name = repository.full_name;
 
         db.repos.find({
             host: 'github',
             repo: full_name
         }, function (err, docs) {
-            for (var i = 0; i < docs.length; i++) {
-                var sync = docs[i];
+            for (let i = 0; i < docs.length; i++) {
+                let sync = docs[i];
                 gitPuller.setDir(sync.dir);
                 gitPuller.pull('origin master');
                 gitPuller.exec(sync.after)
@@ -61,15 +64,15 @@ app.all('/catch', function (req, res) {
             res.json(docs.length);
         });
     } else if (user_agent.indexOf('Bitbucket') >= 0) {//Bitbucket
-        repository = req.body.repository;
-        full_name = repository.full_name;
+        let repository = req.body.repository;
+        let full_name = repository.full_name;
 
         db.repos.find({
             host: 'bitbucket',
             repo: full_name
         }, function (err, docs) {
-            for (var i = 0; i < docs.length; i++) {
-                var sync = docs[i];
+            for (let i = 0; i < docs.length; i++) {
+                let sync = docs[i];
                 gitPuller.setDir(sync.dir);
                 gitPuller.pull('origin master');
                 gitPuller.exec(sync.after);
@@ -96,7 +99,7 @@ app.get('/all', function (req, res) {
 });
 
 app.post('/create', upload.array(), function (req, res) {
-    var body = req.body;
+    let body = req.body;
 
     if (!body.repo || body.repo === '') {
         res.status(404).send();
@@ -111,11 +114,11 @@ app.post('/create', upload.array(), function (req, res) {
         return;
     }
 
-    var repo = body.repo;
-    var dir = body.dir;
-    var host = body.host;
-    var after_pull = body.after ? body.after: '';
-    var newSync = {
+    let repo = body.repo;
+    let dir = body.dir;
+    let host = body.host;
+    let after_pull = body.after ? body.after : '';
+    let newSync = {
         repo: repo,
         dir: dir,
         host: host,
@@ -141,7 +144,7 @@ app.post('/create', upload.array(), function (req, res) {
 });
 
 app.get('/delete/:id', function (req, res) {
-    var id = req.params.id;
+    let id = req.params.id;
     db.repos.remove({_id: id}, {}, function (err, num) {
         if (num > 0) {
             res.json({
@@ -159,7 +162,7 @@ app.get('/delete/:id', function (req, res) {
 });
 
 app.get('/auth', function (req, res) {
-    var code = req.query.code;
+    let code = req.query.code;
 
     if (!code) {
         res.status(404).send();
