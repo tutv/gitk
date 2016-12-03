@@ -1,6 +1,8 @@
-var Datastore = require('nedb');
+'use strict';
 
-var db = {};
+const Datastore = require('nedb');
+
+let db = {};
 db.repos = new Datastore({filename: 'databases/repos.db', autoload: true});
 
 module.exports = db;
