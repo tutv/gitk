@@ -2,6 +2,28 @@
 
 (function ($) {
     const baseAPI = '/api';
+    _.templateSettings = {
+        interpolate: /\{\{(.+?)\}\}/g
+    };
+
+    let gitKProject = Backbone.Model.extend({
+        initialize: function () {
+
+        },
+        defaults: {
+            repo: '',
+            host: '',
+            dir: ''
+        }
+    });
+
+    let Projects = Backbone.Collection.extend({
+        model: gitKProject,
+        url: baseAPI + '/list',
+        parse: function (response) {
+            return response.data;
+        }
+    });
 
     let gitKForm = Backbone.View.extend({
         el: "#form",
@@ -42,19 +64,36 @@
     let gitKList = Backbone.View.extend({
         el: "#list",
 
+        projects: null,
+
         events: {},
 
         initialize: function () {
-
+            this.projects = new Projects();
+            this.fetchProjects();
+            this.render();
         },
 
         onAddRepo: function (data) {
-            console.log(data);
+        },
+
+        fetchProjects: function () {
+            this.projects.fetch();
         },
 
         render: function () {
+            let html = this.template({
+                projects: this.projects.toJSON()
+            });
+            this.$el.html(html);
 
-        }
+            return this;
+        },
+
+        template: function (data) {
+            let template = $('#template-projects').html();
+            return _.template(template)(data);
+        },
     });
 
     let App = Backbone.View.extend({

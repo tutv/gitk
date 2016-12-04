@@ -32,7 +32,15 @@ controller.remove = (req, res, next) => {
 };
 
 controller.list = (req, res, next) => {
-    res.send('1');
+    modelProject.list()
+        .then(
+            data => {
+                response.sendSuccess(res, data);
+            },
+            error => {
+                response.sendError(res, error);
+            }
+        );
 };
 
 module.exports = controller;
