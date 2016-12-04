@@ -42,9 +42,21 @@ model.update = function (id, newProject) {
     });
 };
 
+model.find = function (args) {
+    return new Promise((resolve, reject) => {
+        projects.findOne(args, function (error, project) {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(project);
+            }
+        })
+    });
+};
+
 model.remove = function (id) {
     return new Promise((resolve, reject) => {
-        projects.remove({_id: id}, function (err, number) {
+        projects.remove({_id: id}, {multi: true}, function (err, number) {
             if (err) {
                 reject('Remove failed');
             } else {
