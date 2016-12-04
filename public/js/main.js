@@ -149,6 +149,8 @@
 
             this.listener();
             this.render();
+
+            this.$('#webhook').val(document.location.origin);
         },
 
         listener: function () {

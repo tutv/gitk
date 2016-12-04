@@ -44,7 +44,7 @@ controller.callback = function (req, res, next) {
                     stderr => {
                         console.error(stderr);
                     }
-                )
+                );
         }
 
         res.json(docs.length);
