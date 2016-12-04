@@ -44,7 +44,7 @@ model.update = function (id, newProject) {
 
 model.find = function (args) {
     return new Promise((resolve, reject) => {
-        projects.findOne(args, function (error, projects) {
+        projects.find(args, function (error, projects) {
             if (error) {
                 reject(error);
             } else {
