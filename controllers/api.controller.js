@@ -28,7 +28,17 @@ controller.create = (req, res, next) => {
 };
 
 controller.remove = (req, res, next) => {
-    res.send('1');
+    let id = req.params.id;
+
+    modelProject.remove(id)
+        .then(
+            result => {
+                response.sendSuccess(res, result);
+            },
+            error => {
+                response.sendError(res, error);
+            }
+        )
 };
 
 controller.list = (req, res, next) => {

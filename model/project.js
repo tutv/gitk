@@ -17,6 +17,8 @@ model.list = function () {
 };
 
 model.create = function (project) {
+    project.enable = true;
+
     return new Promise((resolve, reject) => {
         projects.insert(project, function (error, newProject) {
             if (error) {
@@ -25,6 +27,22 @@ model.create = function (project) {
                 resolve(newProject);
             }
         })
+    });
+};
+
+model.remove = function (id) {
+    return new Promise((resolve, reject) => {
+        projects.remove({_id: id}, function (err, number) {
+            if (err) {
+                reject('Remove failed');
+            } else {
+                if (number == 0) {
+                    reject('Project not found');
+                } else {
+                    resolve(id);
+                }
+            }
+        });
     });
 };
 

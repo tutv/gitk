@@ -36,7 +36,7 @@
                     <div class="form-group">
                         <label for="after">Script after pull successful</label>
                         <input name="after" type="text" class="form-control" id="after"
-                               placeholder="E.g echo 'Pull done'">
+                               placeholder="echo 'Pull done'">
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -51,11 +51,11 @@
             </div>
 
             <div class="form-group">
-                <button class="btn btn-lg btn-primary" id="add">Add</button>
+                <button class="btn btn-lg btn-primary" id="add">Create project</button>
             </div>
         </form>
 
-        <div id="list">
+        <div id="list-projects">
 
         </div>
     </div>
@@ -64,8 +64,37 @@
 
 <script type="text/html" id="template-projects">
     <h2>List projects</h2>
-    <div class="list">
-        {{projects}}
+    <div class="list row">
+        <% _.each(projects, function(project) { %>
+        <div class="col-md-6 col-sm-12 project" data-id="<%= project._id %>">
+            <div class="panel panel-<%= project.enable ? 'primary' : 'default' %>">
+                <div class="panel-heading">
+                    <span><%= project.repo %></span>
+                    <span class="badge"><%= project.host %></span>
+                </div>
+                <div class="panel-body">
+                    <div>Directory:
+                        <code><%= project.dir %></code>
+                    </div>
+                </div>
+
+                <div class="panel-footer">
+                    <div class="btn-group btn-group-sm" data-toggle="buttons">
+                        <button class="btn btn-success <%= project.enable ? 'active' : '' %>">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </button>
+                        <button class="btn btn-default <%= !project.enable ? 'active' : '' %>">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+
+                    <button class="pull-right btn btn-warning remove">
+                        <span class="glyphicon glyphicon-trash"></span> Remove?
+                    </button>
+                </div>
+            </div>
+        </div>
+        <% }) %>
     </div>
 </script>
 

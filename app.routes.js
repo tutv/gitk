@@ -13,7 +13,7 @@ module.exports.api = api;
 
 api.post('/create', apiController.create);
 
-api.get('/remove', apiController.remove);
+api.get('/remove/:id', apiController.remove);
 
 api.get('/list', apiController.list);
 

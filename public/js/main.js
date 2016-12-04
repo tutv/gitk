@@ -2,28 +2,6 @@
 
 (function ($) {
     const baseAPI = '/api';
-    _.templateSettings = {
-        interpolate: /\{\{(.+?)\}\}/g
-    };
-
-    let gitKProject = Backbone.Model.extend({
-        initialize: function () {
-
-        },
-        defaults: {
-            repo: '',
-            host: '',
-            dir: ''
-        }
-    });
-
-    let Projects = Backbone.Collection.extend({
-        model: gitKProject,
-        url: baseAPI + '/list',
-        parse: function (response) {
-            return response.data;
-        }
-    });
 
     let gitKForm = Backbone.View.extend({
         el: "#form",
@@ -39,12 +17,14 @@
         },
 
         addProject(data) {
+            let self = this;
+
             $.ajax({
                 method: 'POST',
                 url: baseAPI + '/create',
                 data: data,
                 success: function (response) {
-                    console.log(response);
+                    self.trigger('addRepo', response.data);
                 },
                 error: function (error) {
                     console.log(error);
@@ -62,28 +42,56 @@
     });
 
     let gitKList = Backbone.View.extend({
-        el: "#list",
+        el: "#list-projects",
 
-        projects: null,
+        projects: [],
 
-        events: {},
+        events: {
+            'click .remove': 'onRemove'
+        },
 
         initialize: function () {
-            this.projects = new Projects();
             this.fetchProjects();
-            this.render();
+        },
+
+        onRemove: function (e) {
+            let confirm = window.confirm('Are you really want to remove project?');
+            if (!confirm) {
+                return;
+            }
+
+            let self = this;
+            let $project = this.$(e.currentTarget).closest('.project');
+            let id = $project.data('id');
+
+            $.ajax({
+                method: 'GET',
+                url: baseAPI + '/remove/' + id,
+                success: function (response) {
+                    self.fetchProjects();
+                }
+            })
         },
 
         onAddRepo: function (data) {
+            this.fetchProjects();
         },
 
         fetchProjects: function () {
-            this.projects.fetch();
+            let self = this;
+
+            $.ajax({
+                url: baseAPI + '/list',
+                success: function (response) {
+                    self.projects = response.data;
+                    self.render();
+                }
+            })
         },
 
         render: function () {
             let html = this.template({
-                projects: this.projects.toJSON()
+                projects: this.projects
             });
             this.$el.html(html);
 
@@ -112,7 +120,7 @@
         },
 
         listener: function () {
-            this.form.on('addRepo', this.list.onAddRepo);
+            this.form.on('addRepo', this.list.onAddRepo, this.list);
         },
 
         render: function () {
