@@ -47,11 +47,43 @@
         projects: [],
 
         events: {
-            'click .remove': 'onRemove'
+            'click .remove': 'onRemove',
+            'click .enable': 'onEnable',
+            'click .disable': 'onDisable',
         },
 
         initialize: function () {
             this.fetchProjects();
+        },
+
+        updateProject(id, data) {
+            let self = this;
+
+            $.ajax({
+                method: 'POST',
+                url: baseAPI + '/update/' + id,
+                data: data,
+                success: function (response) {
+                    self.fetchProjects();
+                },
+                error: function (error) {
+                    alert('Something went wrong');
+                }
+            });
+        },
+
+        onEnable: function (e) {
+            let $project = this.$(e.currentTarget).closest('.project');
+            let id = $project.data('id');
+
+            this.updateProject(id, {enable: true});
+        },
+
+        onDisable: function (e) {
+            let $project = this.$(e.currentTarget).closest('.project');
+            let id = $project.data('id');
+
+            this.updateProject(id, {enable: false});
         },
 
         onRemove: function (e) {
@@ -70,7 +102,7 @@
                 success: function (response) {
                     self.fetchProjects();
                 }
-            })
+            });
         },
 
         onAddRepo: function (data) {

@@ -27,6 +27,24 @@ controller.create = (req, res, next) => {
         );
 };
 
+controller.update = (req, res, next) => {
+    let id = req.params.id;
+    let data = req.body;
+
+    let detect_bool = data.enable || null;
+    data.enable = detect_bool != 'false';
+
+    modelProject.update(id, data)
+        .then(
+            result => {
+                response.sendSuccess(res, result);
+            },
+            error => {
+                response.sendError(res, error);
+            }
+        )
+};
+
 controller.remove = (req, res, next) => {
     let id = req.params.id;
 

@@ -30,6 +30,18 @@ model.create = function (project) {
     });
 };
 
+model.update = function (id, newProject) {
+    return new Promise((resolve, reject) => {
+        projects.update({_id: id}, {$set: newProject}, {}, function (error, number) {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(number);
+            }
+        })
+    });
+};
+
 model.remove = function (id) {
     return new Promise((resolve, reject) => {
         projects.remove({_id: id}, function (err, number) {
