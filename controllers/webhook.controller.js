@@ -34,7 +34,8 @@ controller.callback = function (req, res, next) {
     modelProject
         .find({
             host: host,
-            repo: repo
+            repo: repo,
+            enable: true
         })
         .then(
             projects => {
@@ -45,7 +46,6 @@ controller.callback = function (req, res, next) {
 
                 for (let i = 0; i < projects.length; i++) {
                     let project = projects[i];
-                    console.log(project);
                     gitService.pull(project.dir)
                         .then(
                             stdout => {
