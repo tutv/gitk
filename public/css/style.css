@@ -1,3 +1,11 @@
 #list-projects .badge {
     text-transform: capitalize;
 }
+
+.project .remove {
+    display: none;
+}
+
+.project:hover .remove {
+    display: block;
+}
