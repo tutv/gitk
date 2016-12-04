@@ -1,10 +1,10 @@
 {
   "name": "gitk",
   "version": "1.0.0",
-  "description": "Sync github vs server",
-  "main": "index.js",
+  "description": "Sync remote git with server",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node app.js",
     "prestart": "npm i",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,11 +17,9 @@
     "body-parser": "^1.15.1",
     "dotenv": "^2.0.0",
     "express": "^4.13.4",
+    "express-validator": "^3.0.0",
     "multer": "^1.1.0",
     "nedb": "^1.8.0",
-    "oauth": "^0.9.14",
-    "passport": "^0.3.2",
-    "passport-bitbucket-oauth2": "^0.1.2",
     "shelljs": "^0.7.0",
     "unirest": "^0.4.2",
     "util": "^0.10.3"

@@ -20,6 +20,9 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+const expressValidator = require('express-validator');
+app.use(expressValidator());
+
 /**
  * Serve static.
  */
