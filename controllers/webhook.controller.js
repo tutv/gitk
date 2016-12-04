@@ -1,6 +1,7 @@
 'use strict';
 
 let controller = {};
+let response = require('../services/response.service');
 let modelProject = require('../model/project');
 let gitService = require('../services/git.service');
 
@@ -30,25 +31,37 @@ controller.callback = function (req, res, next) {
         host = 'bitbucket';
     }
 
-    modelProject.find({
-        host: host,
-        repo: repo
-    }, function (err, projects) {
-        for (let i = 0; i < projects.length; i++) {
-            let project = projects[i];
-            gitService.pull(project.dir)
-                .then(
-                    stdout => {
-                        console.log(stdout);
-                    },
-                    stderr => {
-                        console.error(stderr);
-                    }
-                );
-        }
+    modelProject
+        .find({
+            host: host,
+            repo: repo
+        })
+        .then(
+            projects => {
+                if (!projects) {
+                    response.sendError(res, 'Project not found');
+                    return;
+                }
 
-        res.json(docs.length);
-    });
+                for (let i = 0; i < projects.length; i++) {
+                    let project = projects[i];
+                    gitService.pull(project.dir)
+                        .then(
+                            stdout => {
+                                console.log(stdout);
+                            },
+                            stderr => {
+                                console.error(stderr);
+                            }
+                        );
+                }
+
+                response.sendSuccess(res, projects);
+            },
+            error => {
+                response.sendError(res, error);
+            }
+        );
 };
 
 module.exports = controller;
