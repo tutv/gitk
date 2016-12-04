@@ -22,7 +22,7 @@
     <div class="container">
         <form action="/" method="post" id="form">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="repo">Repo</label>
                         <input name="repo" type="text" class="form-control" id="repo"
@@ -32,20 +32,20 @@
                         <label for="dir">Directory contain this project</label>
                         <input name="dir" type="text" class="form-control" id="dir" placeholder="/home/project/example">
                     </div>
-
-                    <div class="form-group">
-                        <label for="after">Script after pull successful</label>
-                        <input name="after" type="text" class="form-control" id="after"
-                               placeholder="echo 'Pull done'">
-                    </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="host">Host</label>
                         <select name="host" id="host" class="form-control">
                             <option value="github">GitHub</option>
                             <option value="bitbucket">Bitbucket</option>
                         </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="after">Script after pull successful</label>
+                        <input name="after" type="text" class="form-control" id="after"
+                               placeholder="echo 'Pull done'">
                     </div>
                 </div>
             </div>
@@ -80,10 +80,10 @@
 
                 <div class="panel-footer">
                     <div class="btn-group btn-group-sm" data-toggle="buttons">
-                        <button class="enable btn btn-success <%= project.enable ? 'active' : '' %>">
+                        <button class="enable btn btn-<%= project.enable ? 'success active' : 'default' %>">
                             <span class="glyphicon glyphicon-ok"></span>
                         </button>
-                        <button class="disable btn btn-default <%= !project.enable ? 'active' : '' %>">
+                        <button class="disable btn btn-<%= !project.enable ? 'success active' : 'default' %>">
                             <span class="glyphicon glyphicon-remove"></span>
                         </button>
                     </div>
