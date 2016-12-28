@@ -8,6 +8,9 @@ git clone https://github.com/tutv95/gitk.git
 ```
 
 - Config app: Copy file `.env.example` to '.env'
+```
+HOST_PORT=2369
+```
 
 - Install dependency packages and run app.
 ```
