@@ -1,4 +1,5 @@
-# Sync project from remote git server to local server
+# GitK
+Sync project from remote git server to local server
 
 # Installation
 
@@ -19,4 +20,4 @@ npm install && npm start
 ![Add new project](./docs/images/new-project.png)
 
 - Go to settings webhook of repository and add new webhook:
-![Add webhook](./docs/images/new-webhook.png)
+![Add webhook](./docs/images/add-webhook.png)
