@@ -48,9 +48,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="after">Script after pull successful</label>
-                        <input name="after" type="text" class="form-control" id="after"
-                               placeholder="echo 'Pull done'">
+                        <label for="branch">Branch</label>
+                        <input name="branch" type="text" class="form-control" id="branch"
+                               value="origin master">
                     </div>
                 </div>
             </div>
@@ -80,6 +80,10 @@
                 <div class="panel-body">
                     <div>Directory:
                         <code><%= project.dir %></code>
+                    </div>
+
+                    <div>Branch:
+                        <code><%= project.branch %></code>
                     </div>
                 </div>
 
