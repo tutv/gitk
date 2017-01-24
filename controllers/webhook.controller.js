@@ -49,7 +49,7 @@ controller.callback = function (req, res, next) {
 
                     console.log(project.repo);
 
-                    gitService.pull(project.dir)
+                    gitService.pull(project.dir, project.branch || 'origin master')
                         .then(
                             stdout => {
                                 console.log(stdout);
