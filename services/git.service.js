@@ -3,7 +3,7 @@
 const shell = require('shelljs');
 
 module.exports.pull = function (dir, branch) {
-    branch = branch || '';
+    branch = branch || 'origin develop';
 
     return new Promise((resolve, reject) => {
         shell.exec(`cd ${dir}; git pull ${branch}`, {async: true}, (code, stdout, stderr) => {
