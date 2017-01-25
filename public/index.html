@@ -13,7 +13,7 @@
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand" href="/">
-                    Sync Git
+                    GitK
                 </a>
             </div>
         </div>
@@ -30,33 +30,43 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="repo">Repo</label>
-                        <input name="repo" type="text" class="form-control" id="repo"
-                               placeholder="tutv95/gitk">
+                        <input name="repo" type="text" class="form-control" id="repo" required
+                               placeholder="eg: https://github.com/tutv95/example-project">
                     </div>
+
                     <div class="form-group">
                         <label for="dir">Directory contain this project</label>
-                        <input name="dir" type="text" class="form-control" id="dir" placeholder="/home/project/example">
+                        <input name="dir" type="text" class="form-control" id="dir" required
+                               placeholder="eg: /home/gitk/example-project">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="remote">Remote</label>
+                        <input name="remote" type="text" class="form-control" id="remote" required
+                               placeholder="eg: origin">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="branch">Branch</label>
+                        <input name="branch" type="text" class="form-control" id="branch" required
+                               placeholder="eg: master">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="host">Host</label>
-                        <select name="host" id="host" class="form-control">
-                            <option value="github">GitHub</option>
-                            <option value="bitbucket">Bitbucket</option>
-                        </select>
+                        <input name="host" id="host" class="form-control" disabled="true"/>
                     </div>
 
                     <div class="form-group">
-                        <label for="branch">Branch</label>
-                        <input name="branch" type="text" class="form-control" id="branch"
-                               value="origin master">
+                        <label for="repo-name">Repo name</label>
+                        <input name="repo-name" id="repo-name" class="form-control" disabled="true"/>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <button class="btn btn-lg btn-primary" id="add">Create project</button>
+                <button class="btn btn-lg btn-primary" id="add">Add project</button>
             </div>
         </form>
 
@@ -82,6 +92,10 @@
                         <code><%= project.dir %></code>
                     </div>
 
+                    <div>Remote:
+                        <code><%= project.remote %></code>
+                    </div>
+
                     <div>Branch:
                         <code><%= project.branch %></code>
                     </div>
@@ -98,7 +112,7 @@
                     </div>
 
                     <button class="pull-right btn btn-warning remove">
-                        <span class="glyphicon glyphicon-trash"></span> Remove?
+                        <span class="glyphicon glyphicon-trash"></span> Delete
                     </button>
                 </div>
             </div>

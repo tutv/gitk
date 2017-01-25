@@ -48,8 +48,10 @@ controller.callback = function (req, res, next) {
                     let project = projects[i];
 
                     console.log(project.repo);
+                    console.log(project.remote);
+                    console.log(project.branch);
 
-                    gitService.pull(project.dir, project.branch || 'origin master')
+                    gitService.pull(project.dir,project.remote, project.branch)
                         .then(
                             stdout => {
                                 console.log(stdout);
