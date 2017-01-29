@@ -223,12 +223,11 @@ function parseRepoNameFromUrl(url) {
     let pathName = parsePathNameFromUrl(url);
 
     let temp = pathName.split('/');
-    let repoName = temp[temp.length - 1];
-    if (repoName == '') {
-        repoName = temp[temp.length - 2];
+    if (temp.length < 3){
+        return '';
     }
 
-    return repoName;
+    return temp[2];
 }
 
 function capitalizeFirstLetter(string) {
