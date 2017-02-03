@@ -14,7 +14,7 @@ HOST_PORT=2369
 
 - Install dependency packages and run app.
 ```
-npm install && npm start
+npm start
 ```
 
 - Open browser: your-domain.com:HOST_PORT (e.g: http://gitk.com:2369)

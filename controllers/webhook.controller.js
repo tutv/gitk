@@ -46,7 +46,12 @@ controller.callback = function (req, res, next) {
 
                 for (let i = 0; i < projects.length; i++) {
                     let project = projects[i];
-                    gitService.pull(project.dir)
+
+                    console.log(project.repo);
+                    console.log(project.remote);
+                    console.log(project.branch);
+
+                    gitService.pull(project.dir,project.remote, project.branch)
                         .then(
                             stdout => {
                                 console.log(stdout);

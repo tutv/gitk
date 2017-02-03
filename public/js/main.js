@@ -12,7 +12,28 @@
 
         onSubmit: function (e) {
             e.preventDefault();
-            let data = this.$el.serialize();
+
+            let repoUrl = $(this.$el).find("#repo").val().trim();
+            let repoPath = parsePathNameFromUrl(repoUrl);
+            repoPath = repoPath.substring(1, repoPath.length);
+
+            let dir = $(this.$el).find("#dir").val();
+            let host = $(this.$el).find("#host").val().toLowerCase();
+            let remote = $(this.$el).find("#remote").val();
+            let branch = $(this.$el).find("#branch").val();
+
+            if (host.length == 0 || dir.length == 0 || repoPath.length == 0 || remote.length == 0 || branch.length == 0) {
+                return alert('Please re-check input!');
+            }
+
+            let data = {
+                repo: repoPath,
+                dir: dir,
+                host: host,
+                remote: remote,
+                branch: branch
+            };
+
             this.addProject(data);
         },
 
@@ -164,5 +185,51 @@
 
     $(document).ready(function ($) {
         new App();
+
+        let hostSupport = ['github.com', 'bitbucket.com'];
+
+        $("#repo").on('input', function () {
+            let url = $('#repo').val();
+            let hostName = parseHostNameFromUrl(url).toLowerCase();
+
+            if (hostSupport.indexOf(hostName) != -1) {
+                $("#host").val(capitalizeFirstLetter(hostName.split('.')[0]));
+                $("#repo-name").val(parseRepoNameFromUrl(url));
+            } else {
+                $("#host").val('');
+                $("#repo-name").val('');
+            }
+
+
+        });
     });
 })(jQuery);
+
+function parseHostNameFromUrl(url) {
+    let a = document.createElement('a');
+    a.href = url;
+
+    return a.hostname;
+}
+
+function parsePathNameFromUrl(url) {
+    let a = document.createElement('a');
+    a.href = url;
+
+    return a.pathname;
+}
+
+function parseRepoNameFromUrl(url) {
+    let pathName = parsePathNameFromUrl(url);
+
+    let temp = pathName.split('/');
+    if (temp.length < 3){
+        return '';
+    }
+
+    return temp[2];
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
