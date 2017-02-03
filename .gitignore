@@ -9,3 +9,5 @@ npm-debug.log
 databases/*
 
 !.keep
+
+yarn.lock
