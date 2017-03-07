@@ -20,8 +20,6 @@ controller.callback = function (req, res, next) {
     let repo = '';
     let host = '';
 
-    console.log(req.body);
-
     if (user_agent.indexOf('GitHub') >= 0) {//GitHub
         let repository = req.body.repository;
         repo = repository.full_name;
