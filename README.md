@@ -1,4 +1,6 @@
 # GitK
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/tutv95/gitk.svg)](https://greenkeeper.io/)
 Sync project from remote git server to local server
 
 # Installation
