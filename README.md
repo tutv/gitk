@@ -1,4 +1,4 @@
-# GitK [![Github All Releases](https://img.shields.io/github/downloads/tutv95/gitk/total.svg)]() https://img.shields.io/travis/tutv95/gitk/master.svg
+# GitK [![Github All Releases](https://img.shields.io/github/downloads/tutv95/gitk/total.svg)]() [![GitHub forks](https://img.shields.io/github/forks/tutv95/gitk.svg)](https://github.com/tutv95/gitk/network) [![Travis](https://img.shields.io/travis/tutv95/gitk.svg)]()
 Sync project from remote git server to local server
 
 # Installation
